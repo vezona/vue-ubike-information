@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>練習 11</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css">
+  <style>
+    body {
+      padding: 1rem;
+      font-size: 1.33rem;
+    }
+
+    button {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    label>input {
+      margin-right: 0.5rem;
+    }
+
+    .quest {
+      margin-bottom: 1em;
+      padding-bottom: 1em;
+      border-bottom: 1px solid #ccc;
+    }
+  </style>
+
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+
+  <div id="app">
+
+    <!--
+      練習 11： 一個簡單的心理測驗遊戲
+      1. 改寫網頁，透過 v-for 將題目與選項依序列出
+      2. 按下「看結果」按鈕計算總分
+      3. 按下「重置」按鈕重置選項
+    -->
+
+    <h1>簡單的心理測驗遊戲</h1>
+    <hr>
+
+    <div class="quest" v-for="(s,idx) of questions">
+      <h3>第{{idx+1}}題. {{s.quest}}</h3>
+      <label v-for="(d,index) of s.options">
+        <input type="radio" :value="d.value" v-model="s.selected">{{index+1}}. {{d.ans}}
+      </label>
+
+      <span>{{s.selected}}</span>
+    </div>
+
+
+
+    <button @click="getResult">看結果</button>
+
+
+    <button @click="reset">重置</button>
+  </div>
+
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          questions: [{
+              quest: '如果你是童話故事中，想吃掉三隻小豬的大野狼，你認為使用哪一種方法可以容易吃掉他們？',
+              options: [{
+                  ans: '用煙把小豬燻到昏倒',
+                  value: 1
+                },
+                {
+                  ans: '從煙囪或其他入口偷偷爬進屋',
+                  value: 2
+                },
+                {
+                  ans: '用槌子把門破壞闖入屋內',
+                  value: 3
+                },
+                {
+                  ans: '模仿豬媽媽的聲音騙小豬開門',
+                  value: 4
+                },
+              ],
+              selected: "",
+            },
+            {
+              quest: '剪刀、石頭、布，你第一直覺會出哪一個？',
+              options: [{
+                  ans: '剪刀',
+                  value: 3
+                },
+                {
+                  ans: '石頭',
+                  value: 2
+                },
+                {
+                  ans: '布',
+                  value: 1
+                },
+              ],
+              selected: ""
+            },
+            {
+              quest: '下列四項運動項目中，假設你要開始嘗試的話，你最想要做哪一項？',
+              options: [{
+                  ans: '潛水',
+                  value: 3
+                },
+                {
+                  ans: '滑翔翼',
+                  value: 4
+                },
+                {
+                  ans: '滑水',
+                  value: 2
+                },
+                {
+                  ans: '長途徒步旅行',
+                  value: 1
+                },
+              ],
+              selected: "",
+            }
+          ]
+        }
+      },
+      computed: {
+
+      },
+      methods: {
+        reset() {
+          // this.$options.data() 可以取得最原始的 data 狀態
+          Object.assign(this.$data, this.$options.data());
+        },
+        getResult() {
+          console.log(this.questions)
+          // 求救：老師我到這邊就卡關了，不知道要怎麼抓到selected的值，然後相加;
+
+        }
+      },
+    }).mount('#app');
+  </script>
+</body>
+
+</html>
